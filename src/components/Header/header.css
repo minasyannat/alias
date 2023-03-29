@@ -1,0 +1,10 @@
+.header h1 {
+    margin:0;
+    text-align:center;
+}
+
+.header img{
+    width:100%;
+    display:block;
+    margin:8px auto 8px auto;
+}
