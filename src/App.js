@@ -1,13 +1,20 @@
 
+import { useSelector } from 'react-redux';
 import './App.css';
-import GamePage from './components/GamePage/GamePage';
-import StartPage from './components/StartPage/StartPage';
+import { PAGE_BY_STAGE } from './helpers/constants/pages';
+
 
 function App() {
+
+  const selectStage= (state)=> state.stage
+  const stage = useSelector(selectStage)
+
+
+
+  const CurrentPage= PAGE_BY_STAGE[stage]
   return (
     <div className="App">
-      {/* <StartPage /> */}
-      <GamePage />
+      <CurrentPage />
     </div>
   );
 }
