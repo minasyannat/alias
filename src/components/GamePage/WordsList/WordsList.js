@@ -2,7 +2,7 @@ import styles from './wordsList.module.css'
 
 function WordsList(){
     return (
-        <div classNgiame={styles.list}>
+        <div className={styles.list}>
             <button>Word</button>
             <button>Word</button>
             <button>Word</button>
