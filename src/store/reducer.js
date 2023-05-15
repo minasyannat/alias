@@ -1,7 +1,28 @@
 import { STAGES } from "../helpers/constants/pages";
-import { SET_STAGE, SET_USER_NAME } from "./actionTypes";
+import { SET_CORRECT_ANSWERS, SET_CORRECT_WORD, SET_STAGE, SET_STATE, SET_USER_NAME, UNDO_CORRECT_WORD } from "./actionTypes";
 
 const initialState= {
+    wordsLeft: [
+        "menq",
+        "es",
+        "du",
+        "nranq",
+        "lsir",
+        "xosir",
+        "mtacir",
+        "verlucir",
+        "nshanakir",
+        "parzabanir",
+        "Shirakatsy",
+        "Dproc",
+        "Mesrop Mashtoc",
+        "Nparexen",
+        "tnaqand",
+        "lusampop",
+        "grakanutyun",
+        "lqel",
+        "maqrel"
+    ],
     team1: {
         id: 'team1',
         name:'',
@@ -37,8 +58,39 @@ export const mainReducer=(state=initialState, action)=>{
                     ...state,
                     stage: action.payload
                 }
-            
-        //     break;
+            case SET_STATE:
+                return {
+                    ...state,
+                    ...action.payload
+                }
+            case SET_CORRECT_WORD:
+                return {
+                    ...state,
+                    wordsLeft: state.wordsLeft.filter(word => word !== action.payload),
+                    [state.turn]: {
+                        ...state[state.turn],
+                        correctWords: [...state[state.turn].correctWords, action.payload]
+                    }
+                }
+            case UNDO_CORRECT_WORD:
+                return {
+                    ...state,
+                    wordsLeft: [...state.wordsLeft, action.payload],
+                    [state.turn]: {
+                        ...state[state.turn],
+                        correctWords: [...state[state.turn].correctWords.filter(word => word !== action.payload)]
+                    }
+                }
+            case SET_CORRECT_ANSWERS:
+                const turn = state.turn  === "team1" ? "team2": "team1"
+                return {
+                    ...state,
+                [turn]: {
+                    ...state[turn],
+                    correctWords: [...state[turn].correctWords, ...action.payload]
+                }
+                }
+        
     
         default:
             return state;
